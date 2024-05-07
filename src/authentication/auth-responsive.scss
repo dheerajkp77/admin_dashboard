@@ -1,0 +1,47 @@
+@media screen and (max-width:991px){
+   
+   .auth-main{
+    .auth_img_wrp {
+        display: none;
+    }
+   .auth-card {
+        height: 100%;
+        .auth_logo {
+            position: unset;
+            top: inherit;
+            margin-bottom: 30px;
+            text-align: center;
+          }
+    }   
+   }
+   
+}
+@media screen and (max-width:480px){
+    .auth-main {
+        .auth-card {
+            .remember_me {
+                text-align: left !important;
+            }
+            .auth_heading {
+                h1 {
+                    font-size: 28px;
+                    font-weight: 600;
+                }
+                h1 {
+                    font-size: 28px;
+                   
+                }
+            }
+            .auth_btn_wrp {
+                margin-top: 0px;
+                .left_links {
+                    justify-content: space-between;
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+                
+            }
+          
+        }
+    }
+}
