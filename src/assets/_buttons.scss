@@ -22,34 +22,6 @@
     }
 }
 
-.social-btn {
-    width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    line-height: 24px;
-    font-weight: 500;
-    border-radius: 0px;
-    color: var(--white);
-    column-gap: 10px;
-    margin-top: 10px;
-    cursor: alias!important;
-
-    &.facebook-btn {
-        background-color: #4866a8;
-    }
-
-    &.google-btn {
-        background-color: #da3f34;
-    }
-
-    &.twiter-btn {
-        background-color: #33ccff;
-    }
-}
-
 button {
     &.btn-link {
         color: var(--white);

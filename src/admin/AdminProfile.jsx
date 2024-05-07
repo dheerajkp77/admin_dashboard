@@ -5,12 +5,12 @@ import { Col, Container, Row, Table } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
-import useDetails from "../../hooks/useDetails";
-import useSlider from "../../hooks/useSlider";
-import { login } from "../../redux/features/authSlice";
-import { constant } from "../../utils/constants";
-import AdminFooter from "../AdminFooter";
-import Sidebar from "../sidebar/Sidebar";
+import useDetails from "../hooks/useDetails";
+import useSlider from "../hooks/useSlider";
+import { login } from "../redux/features/authSlice";
+import { constant } from "../utils/constants";
+import AdminFooter from "./AdminFooter";
+import Sidebar from "./sidebar/Sidebar";
 
 const AdminProfile = () => {
   const isSlider = useSlider();
