@@ -1,14 +1,21 @@
-h1,h2,h3,h4,h5,h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #000;
   font-weight: 600;
 }
-p{
+p {
   color: #474747;
 }
 .cursor-pointer {
   cursor: pointer;
 }
-
+a {
+  text-decoration: none;
+}
 
 .pagination {
   display: flex;
@@ -53,8 +60,3 @@ p{
     }
   }
 }
-
-
-
-
-

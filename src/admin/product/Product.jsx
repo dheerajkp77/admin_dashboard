@@ -1,47 +1,44 @@
-
-
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import React, { useState } from "react";
-import { Container, Table } from "react-bootstrap";
-import { FaEye, FaPencilAlt, FaUserAlt, FaUserAltSlash } from "react-icons/fa";
+import { Badge, Container, Table } from "react-bootstrap";
+import { FaBan, FaCheck, FaEye, FaTrash } from "react-icons/fa";
+import { FaPencil } from "react-icons/fa6";
 import ReactPaginate from "react-paginate";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useDebounceEffect } from "../../../hooks/useDebounceEffect";
-import useSlider from "../../../hooks/useSlider";
-import { adminBrandList, adminBrandStatus } from "../../../services/services";
-import { toastAlert } from "../../../utils/SweetAlert";
-import { checkAdminState } from "../../../utils/checkAdminState";
-import { constant } from "../../../utils/constants";
-import Sidebar from "../../sidebar/Sidebar";
-import AdminFooter from "../AdminFooter";
 
-const BrandList = () => {
+import { toastAlert } from "../../utils/SweetAlert";
+import { constant } from "../../utils/constants";
+import { useDebounceEffect } from "../../hooks/useDebounceEffect";
+import Sidebar from "../sidebar/Sidebar";
+import AdminFooter from "../AdminFooter";
+import useSlider from "../../hooks/useSlider";
+
+const Product = () => {
   const isSlider = useSlider();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const [pagination, setPagination] = useState({
-    state: "",
-    search: "",
     pageNo: constant.PAGE_NO_ONE,
     pageLimit: constant.PER_PAGE_TEN,
+    state: "",
+    search: "",
   });
   const debouncedSearch = useDebounceEffect(pagination?.search.trim(), 1000);
 
-  const { data: brandList } = useQuery({
+  const { data: productList, refetch } = useQuery({
     queryKey: [
-      "brandList",
+      "request-list",
       {
-        state: pagination.state,
-        search: debouncedSearch,
         page: pagination.pageNo,
         limit: pagination.pageLimit,
+        state: pagination.state,
+        search: debouncedSearch,
       },
     ],
     queryFn: async ({ queryKey }) => {
       const [_key, query] = queryKey;
-      const resp = await adminBrandList(query);
+      const resp = await adminProductList(query);
       const { _meta } = resp?.data ?? {};
       setPagination((prevPagination) => ({
         ...prevPagination,
@@ -60,6 +57,7 @@ const BrandList = () => {
       pageNo: 1,
     });
   };
+
   const handleStateFilterChange = (e) => {
     setPagination({
       ...pagination,
@@ -68,6 +66,57 @@ const BrandList = () => {
     });
   };
 
+  const stateId = {
+    1: "Active",
+    2: "Inactive",
+    3: "Deleted",
+  };
+
+  const badgeColor = {
+    1: "success",
+    2: "primary",
+    3: "danger",
+  };
+
+  const category = {
+    0: "Male",
+    1: "Female",
+    2: "Unisexual",
+  };
+
+  const deleteMutate = useMutation({
+    mutationFn: (id) => adminDeleteProduct(id),
+    onSuccess: (resp) => {
+      toastAlert("success", resp?.data?.message);
+      refetch();
+    },
+  });
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this cms!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#378ce7",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        deleteMutate?.mutate(id);
+      }
+    });
+  };
+
+  const stateMutation = useMutation({
+    mutationFn: (body) =>
+      adminUpdateStateProduct(body?.id, { stateId: body?.state }),
+    onSuccess: (resp) => {
+      toastAlert("success", resp?.data?.message);
+      refetch();
+    },
+  });
+
   const handleToggleState = (id, state) => {
     try {
       Swal.fire({
@@ -75,7 +124,7 @@ const BrandList = () => {
         text: "You want to update the status !",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#000",
+        confirmButtonColor: "#378ce7",
         cancelButtonColor: "#d33",
         confirmButtonText:
           state == constant.ACTIVE ? "Yes,Active it !" : "Yes, Inactive it !",
@@ -89,14 +138,6 @@ const BrandList = () => {
     }
   };
 
-  const stateMutation = useMutation({
-    mutationFn: (value) => adminBrandStatus(value?.id, { state: value?.state }),
-    onSuccess: (resp) => {
-      toastAlert("success", "Brand updated successfully");
-      queryClient.invalidateQueries({ queryKey: ["brandList"] });
-    },
-  });
-
   return (
     <>
       <div className="mainbox">
@@ -107,18 +148,17 @@ const BrandList = () => {
               <Link to="/admin/dashboard" className="bread_color">
                 Home
               </Link>
-              / Brand
+              / Product Management
             </h2>
             <div className=" d-flex align-items-center gap-3 my-2 mx-1">
               <input
                 type="text"
                 placeholder="Search"
-                value={pagination.search.trim()}
+                value={pagination.search}
                 onChange={handleSearchChange}
                 className="form-control"
                 style={{ width: "250px" }}
               />
-
               <select
                 value={pagination.state}
                 onChange={handleStateFilterChange}
@@ -126,18 +166,16 @@ const BrandList = () => {
               >
                 <option value="">All Status</option>
                 <option value={constant.ACTIVE}>Active</option>
-                <option value={constant.INACTIVE}>In-Active</option>
-                <option value={constant.DELETE}>Delete</option>
+                <option value={constant.INACTIVE}>Inactive</option>
+                <option value={constant.DELETE}>Deleted</option>
               </select>
-              <button
+              <Link
                 type="button"
-                className="theme-btn btn-md"
-                onClick={() => {
-                  navigate(`/admin/add-brand`);
-                }}
+                className="btn btn-primary"
+                to="../add-product"
               >
-                Create
-              </button>
+                Add
+              </Link>
             </div>
           </div>
 
@@ -148,16 +186,21 @@ const BrandList = () => {
                   <thead>
                     <tr>
                       <th>Sn.</th>
-                      <th>Icon</th>
-                      <th>Brand</th>
+                      <th>Title</th>
+                      <th>Image</th>
+                      <th>Category</th>
+                      <th>T-shirt Type</th>
+                      <th>Material</th>
+                      <th>Size</th>
+                      <th>Price</th>
                       <th>Created On</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {brandList?.length > 0 ? (
-                      brandList?.map((data, index) => {
+                    {productList?.length > 0 ? (
+                      productList?.map((data, index) => {
                         const serialNumber =
                           index +
                           1 +
@@ -165,43 +208,54 @@ const BrandList = () => {
                         return (
                           <tr key={index}>
                             <th scope="row">{serialNumber}</th>
+                            <td>{data?.title}</td>
                             <td>
-                              <div className="table-user d-flex align-items-center">
-                                <span className="table-user-icon">
-                                  <img
-                                    src={
-                                      data?.icon
-                                        ? import.meta.env.VITE_IMAGE_URL +
-                                          data?.icon
-                                        : "/images/default.jpg"
-                                    }
-                                  />
-                                </span>
+                              <div className="table-img">
+                                <img
+                                  src={
+                                    import.meta.env.VITE_IMAGE_URL +
+                                    data?.images?.at(0)
+                                  }
+                                  onError={({ currentTarget }) => {
+                                    currentTarget.onerror = null; // prevents looping
+                                    currentTarget.src =
+                                      "/images/default_banner.png";
+                                  }}
+                                />
                               </div>
                             </td>
-                            <td>{data?.brand}</td>
+                            <td>{category[data?.category] ?? "NA"}</td>
+                            <td>{data?.type}</td>
+                            <td>{data?.material}</td>
+                            <td>{data?.size?.toString()}</td>
+                            <td>${data?.price}</td>
                             <td>{moment(data?.createdAt).format("LLL")}</td>
-                            <td>{checkAdminState(data?.stateId)}</td>
+                            <td>
+                              <Badge
+                                bg={badgeColor[data?.stateId] ?? "warning"}
+                              >
+                                {stateId[data?.stateId] ?? "NA"}
+                              </Badge>
+                            </td>
                             <td>
                               <div className="action-btn">
                                 <button
                                   title="View"
-                                  onClick={() =>
-                                    navigate(`/admin/view-brand/${data?._id}`)
-                                  }
+                                  onClick={() => navigate(`./${data?._id}`)}
                                   className="btn-small style-one"
                                 >
                                   <FaEye />
                                 </button>
                                 <button
-                                  title="Update"
+                                  title="Edit"
                                   onClick={() =>
-                                    navigate(`/admin/edit-brand/${data?._id}`)
+                                    navigate(`../add-product/${data?._id}`)
                                   }
-                                  className="btn-small style-six"
+                                  className="btn-small style-three"
                                 >
-                                  <FaPencilAlt />
+                                  <FaPencil />
                                 </button>
+
                                 {data.stateId === constant.ACTIVE ? (
                                   <button
                                     className="btn-small style-five"
@@ -213,7 +267,7 @@ const BrandList = () => {
                                       )
                                     }
                                   >
-                                    <FaUserAltSlash />
+                                    <FaBan />
                                   </button>
                                 ) : (
                                   <button
@@ -226,9 +280,16 @@ const BrandList = () => {
                                       )
                                     }
                                   >
-                                    <FaUserAlt />
+                                    <FaCheck />
                                   </button>
                                 )}
+                                <button
+                                  title="Delete"
+                                  onClick={() => handleDelete(data?._id)}
+                                  className="btn-small style-two"
+                                >
+                                  <FaTrash />
+                                </button>
                               </div>
                             </td>
                           </tr>
@@ -236,7 +297,7 @@ const BrandList = () => {
                       })
                     ) : (
                       <tr>
-                        <td colSpan="10" className="text-center">
+                        <td colSpan="12" className="text-center">
                           Data Not Found
                         </td>
                       </tr>
@@ -278,4 +339,4 @@ const BrandList = () => {
   );
 };
 
-export default BrandList;
+export default Product;

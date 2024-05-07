@@ -1,17 +1,13 @@
 
 import { useQuery } from "@tanstack/react-query";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { FaCreditCard,FaUsers } from "react-icons/fa";
+import { Chart } from "react-google-charts";
 import { useNavigate } from "react-router-dom";
 import useSlider from "../../hooks/useSlider";
-import { adminDashboardCounts, dashboardGraphData } from "../../services/services";
-import AdminFooter from "../components/AdminFooter";
 import Sidebar from "../sidebar/Sidebar";
-import moment from "moment";
-import { Chart } from "react-google-charts";
-import { MdOutlineProductionQuantityLimits } from "react-icons/md";
-import { TbBrandBooking } from "react-icons/tb";
+import AdminFooter from "../AdminFooter";
 const Dashboard = () => {
   const isSlider = useSlider();
   const navigate = useNavigate();

@@ -1,18 +1,16 @@
-
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { FaPen, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import useDetails from "../../hooks/useDetails";
-import useSlider from "../../hooks/useSlider";
-import { login } from "../../redux/features/authSlice";
-import { slider } from "../../redux/features/sliderSlice";
-import { logOut } from "../../services/services";
-import { SidebarIcon } from "../../utils/Icons";
-import { toastAlert } from "../../utils/SweetAlert";
-import "../sidebar/sidebar.scss";
+import { SidebarIcon } from "../SvgIcons/allIcons";
+import useDetails from "../hooks/useDetails";
+import useSlider from "../hooks/useSlider";
+import { login } from "../redux/features/authSlice";
+import { slider } from "../redux/features/sliderSlice";
+import { toastAlert } from "../utils/SweetAlert";
+import "./sidebar/sidebar.scss";
 
 const AdminHeader = () => {
   const data = useDetails();

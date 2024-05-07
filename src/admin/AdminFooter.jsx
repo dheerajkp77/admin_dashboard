@@ -2,7 +2,7 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import useSlider from "../../hooks/useSlider";
+import useSlider from "../hooks/useSlider";
 
 const AdminFooter = () => {
   const isSlider = useSlider();
@@ -21,17 +21,9 @@ const AdminFooter = () => {
                   className="text-decoration-underline "
                 >
                   {" "}
-                  T-Shirt-customization
+                  Admin Dashboard
                 </Link>
-                | All Rights Reserved. Developed By
-                <Link
-                  to="https://ozvid.com/"
-                  target="_blank"
-                  className="text-decoration-underline "
-                >
-                  {" "}
-                  OZVID Technologies
-                </Link>
+                | All Rights Reserved.
               </p>
             </Col>
           </Row>

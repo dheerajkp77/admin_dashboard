@@ -11,11 +11,3 @@ export const toastAlert = (icon, title) => {
     timer: 3000,
   });
 };
-
-export const showInformation = (title) => {
-  Swal.fire({
-    title: title,
-    confirmButtonColor: "linear-gradient(90deg, #653de6 0%, #fc5185 100%)",
-    confirmButtonText: "Confirm",
-  });
-};

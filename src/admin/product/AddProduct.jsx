@@ -7,17 +7,12 @@ import { FaTimes } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import * as yup from "yup";
-import useSlider from "../../../hooks/useSlider";
-import {
-  addProductAdmin,
-  adminEditProduct,
-  adminProductDetails,
-  deleteProductImage,
-} from "../../../services/services";
-import { toastAlert } from "../../../utils/SweetAlert";
-import { constant } from "../../../utils/constants";
-import Sidebar from "../../sidebar/Sidebar";
+import useSlider from "../../hooks/useSlider";
+
+import { constant } from "../../utils/constants";
+import Sidebar from "../sidebar/Sidebar";
 import AdminFooter from "../AdminFooter";
+import { toastAlert } from "../../utils/SweetAlert";
 
 const AddProduct = () => {
   const isSlider = useSlider();

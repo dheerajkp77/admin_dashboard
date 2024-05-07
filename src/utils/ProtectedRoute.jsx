@@ -10,7 +10,7 @@ export const AdminAuth = () => {
   }
 };
 
-export const PublicAuthWithoutHeader = () => {
+export const PublicAuth = () => {
   const token = useToken();
 
   if (token) {

@@ -24,7 +24,6 @@ const Pagination = (props) => {
           disabledClassName={"pagination__link--disabled"}
           activeClassName={"pagination__link--active"}
           breakLinkClassName={"page-link"}
-         
         />
       </div>
     </div>

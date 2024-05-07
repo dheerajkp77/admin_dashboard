@@ -3,7 +3,7 @@ import React from "react";
 import { NavbarBrand } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useSlider from "../../hooks/useSlider";
-import AdminHeader from "../components/AdminHeader";
+import AdminHeader from "../AdminHeader";
 import { SidebarData } from "./SidebarData";
 import SubMenu from "./SubMenu";
 import "./sidebar.scss";

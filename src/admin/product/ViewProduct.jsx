@@ -4,9 +4,8 @@ import moment from "moment";
 import React from "react";
 import { Badge, Col, Container, Row, Table } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useSlider from "../../../hooks/useSlider";
-import { adminProductView } from "../../../services/services";
-import Sidebar from "../../sidebar/Sidebar";
+import useSlider from "../../hooks/useSlider";
+import Sidebar from "../sidebar/Sidebar";
 import AdminFooter from "../AdminFooter";
 
 const ViewProduct = () => {

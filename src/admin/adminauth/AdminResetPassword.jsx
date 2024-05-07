@@ -6,11 +6,10 @@ import { Col, Container, Form, Row } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
-import useSlider from "../../../hooks/useSlider";
-import { login } from "../../../redux/features/authSlice";
-import { changePassword } from "../../../services/services";
-import { toastAlert } from "../../../utils/SweetAlert";
-import Sidebar from "../../sidebar/Sidebar";
+import useSlider from "../../hooks/useSlider";
+import { login } from "../../redux/features/authSlice";
+import { toastAlert } from "../../utils/SweetAlert";
+import Sidebar from "../sidebar/Sidebar";
 import AdminFooter from "../AdminFooter";
 import { Link } from "react-router-dom";
 

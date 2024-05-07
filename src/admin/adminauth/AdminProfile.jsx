@@ -1,4 +1,3 @@
-
 import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
@@ -7,14 +6,13 @@ import { FaPencilAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
-import { CameraIcon } from "../../../SvgIcons/allIcons";
-import useDetails from "../../../hooks/useDetails";
-import useSlider from "../../../hooks/useSlider";
-import { login } from "../../../redux/features/authSlice";
-import { customerEditProfile, imageUpload } from "../../../services/services";
-import { constant } from "../../../utils/constants";
-import Sidebar from "../../sidebar/Sidebar";
+import useSlider from "../../hooks/useSlider";
+import { login } from "../../redux/features/authSlice";
+import { constant } from "../../utils/constants";
+import { CameraIcon } from "../../SvgIcons/allIcons";
+import Sidebar from "../sidebar/Sidebar";
 import AdminFooter from "../AdminFooter";
+import useDetails from "../../hooks/useDetails";
 
 const AdminProfile = () => {
   const [editButton, setEdiButton] = useState(false);
