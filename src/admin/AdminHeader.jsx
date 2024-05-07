@@ -51,7 +51,7 @@ const AdminHeader = () => {
                     src={
                       data?.profileImg
                         ? import.meta.env.VITE_IMAGE_URL + data?.profileImg
-                        : "/images/default.jpg"
+                        : "/images/profile.jpg"
                     }
                     alt="Image"
                   />

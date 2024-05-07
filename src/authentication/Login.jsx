@@ -20,9 +20,8 @@ import "./auth.scss";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [showPass, setShowPass] = useState(false);
   const location = useLocation();
-
+  const [showPass, setShowPass] = useState(false);
   const {
     values,
     errors,
@@ -31,7 +30,6 @@ const Login = () => {
     touched,
     handleSubmit,
     resetForm,
-    setValues,
   } = useFormik({
     initialValues: {
       email: "",
@@ -164,7 +162,7 @@ const Login = () => {
           </Col>
           <Col lg={6} className="px-0">
             <div className="auth_img_wrp">
-              <img src="/images/auth-img.png" alt="img" />
+              <img src="/images/auth-img.jpg" alt="img" />
             </div>
           </Col>
         </Row>

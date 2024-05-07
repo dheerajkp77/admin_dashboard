@@ -143,7 +143,7 @@ const AdminProfile = () => {
                                 : values.profileImg
                                 ? import.meta.env.VITE_IMAGE_URL +
                                   values.profileImg
-                                : "/images/default.jpg"
+                                : "/images/profile.jpg"
                             }
                             alt="Image"
                           />
@@ -245,7 +245,7 @@ const AdminProfile = () => {
                             data?.profileImg
                               ? import.meta.env.VITE_IMAGE_URL +
                                 data?.profileImg
-                              : "/images/default.jpg"
+                              : "/images/profile.jpg"
                           }
                           alt="Profile"
                         />
