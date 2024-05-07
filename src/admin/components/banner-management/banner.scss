@@ -1,0 +1,11 @@
+.preview-img {
+  border: 1px solid #ebebeb;
+  padding: 10px;
+  border-radius: 5px;
+
+  img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+  }
+}

@@ -1,0 +1,335 @@
+.user_section {
+    padding: 80px 0px;
+
+    .user_sidebar {
+        padding: 40px;
+        border: 1px solid #D1D1D1;
+        border-radius: 10px;
+
+        .profile_wrp {
+            text-align: center;
+
+            img {
+                width: 120px;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 50%;
+                box-shadow: 0px 0px 6px #ccc;
+            }
+
+            p {
+                font-size: 18px;
+                color: #000;
+                margin-top: 15px;
+                font-weight: 500;
+            }
+        }
+
+        .sidebar_list {
+            ul {
+                list-style: none;
+                padding-left: 0px;
+
+                li {
+                    a {
+                        color: #6B6B6B;
+                        padding: 12px 15px;
+                        border-radius: 6px;
+                        display: inline-flex;
+                        font-weight: 500;
+                        width: 100%;
+                        margin: 5px 0px;
+
+                        img {
+                            width: 22px;
+                            height: 22px;
+                            object-fit: contain;
+                            margin-right: 12px;
+                        }
+
+                        &:hover {
+                            background: #378CE7;
+                            color: #fff;
+
+                            img {
+                                filter: invert(0) brightness(100);
+                            }
+                        }
+                    }
+
+                    .active {
+                        background: #378CE7;
+                        color: #fff;
+
+                        img {
+                            filter: invert(0) brightness(100);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+}
+
+
+.card_heading {
+    border-bottom: 1px solid #D9D9D9;
+    padding-bottom: 5px;
+    margin-bottom: 30px;
+
+    h4 {
+        font-family: "Public Sans";
+        font-weight: 500;
+    }
+}
+
+.table_card {
+    overflow-x: auto;
+
+    .table {
+        background: #0000;
+
+        tr {
+            border-width: 0px;
+            text-wrap: nowrap;
+
+            th {
+                background-color: #0000 !important;
+                border: 0px;
+                border-color: #DCDCDC;
+            }
+
+            td {
+                background-color: #0000 !important;
+                border-left: 0px;
+                border-right: 0px;
+                border-color: #DCDCDC;
+                color: #6B6B6B;
+                text-wrap: nowrap;
+            }
+
+
+        }
+
+        .bg-warning {
+            background-color: #912BBC !important;
+        }
+
+        .bg-primary {
+            background-color: #2F99E7 !important;
+        }
+    }
+
+}
+
+.orange_bg {
+    background: #FCF6FF;
+    padding: 40px 25px;
+    border-radius: 10px;
+}
+
+// order details page css
+.my_order_wrp {
+
+    .order_dtl_list {
+        ul {
+            list-style: none;
+            padding-left: 0px;
+
+            li {
+                color: #6B6B6B;
+
+                span {
+                    width: 40%;
+                }
+            }
+        }
+    }
+
+    .order_track {
+        .track_wrap {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+
+            .track_inr {
+                h5 {
+                    font-family: "Public Sans";
+                    font-weight: 500;
+                }
+
+                p {
+                    margin-bottom: 0px;
+                    color: #000;
+                }
+            }
+        }
+    }
+
+
+    .order_status {
+        margin-top: 40px;
+
+        .line_wrp {
+            position: absolute;
+            content: "";
+            background: #d9d9d9;
+            width: 87%;
+            height: 4px;
+            top: 22%;
+            left: 0;
+            border-radius: 40px;
+
+            .active {
+
+                &:before {
+                    position: absolute;
+                    content: "";
+                    background: #378CE7;
+                    width: 70%;
+                    height: 4px;
+                    border-radius: 40px;
+                }
+            }
+
+
+        }
+
+        h3 {
+            span {
+                color: #378CE7;
+            }
+        }
+
+        p {
+            color: #000;
+        }
+
+        .status_inr {
+            position: relative;
+            z-index: 9;
+
+            .status_icon {
+                background: #D9D9D9;
+                width: 80px;
+                height: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0px auto 25px;
+                border-radius: 50%;
+                box-shadow: 0px 0px 10px #ccc;
+
+                svg {
+                    path {
+                        fill: #000;
+                    }
+                }
+            }
+
+
+
+            h5 {
+                font-family: "Public Sans";
+                font-weight: 500;
+                color: #8E8E8E;
+            }
+
+            p {
+                color: #8E8E8E;
+            }
+        }
+
+        .active {
+
+            .status_icon {
+                background: #378CE7;
+                box-shadow: none;
+
+                svg {
+                    path {
+                        fill: #fff;
+                    }
+                }
+            }
+
+
+            h5 {
+                color: #000;
+            }
+
+            p {
+                color: #000;
+            }
+        }
+    }
+
+
+}
+
+// Responsive css start here
+
+@media screen and (max-width:991px) {
+    .user_section {
+        padding: 50px 0px;
+
+        .my_order_wrp {
+            margin-top: 40px;
+        }
+    }
+}
+
+@media screen and (max-width:575px) {
+    .user_section {
+        padding: 40px 0px;
+
+        .user_sidebar {
+            padding: 20px;
+        }
+
+        .track_inr {
+            width: 100%;
+        }
+
+        .my_order_wrp {
+            .order_status {
+                .status_inr {
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 170px;
+
+                    h5 {
+                        font-size: 18px;
+                    }
+
+                    .status_icon {
+                        width: 60px;
+                        height: 60px;
+                    }
+
+                    p {
+                        margin-top: auto;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:480px) {
+    .my_order_wrp {
+        .order_status {
+            .status_inr {
+
+                h5 {
+                    font-size: 16px !important;
+                }
+            }
+        }
+    }
+
+}

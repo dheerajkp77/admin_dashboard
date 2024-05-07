@@ -1,0 +1,90 @@
+.faq_wrp {
+    padding: 80px 0px;
+
+    .accordion {
+        .accordion-item {
+            border: 0px;
+            margin-bottom: 20px;
+
+            .accordion-header {
+                .accordion-button {
+                    background-color: #EDEDED;
+                    border-radius: 10px;
+
+
+                    h5 {
+                        color: #6B6B6B;
+                        font-family: "Public sans";
+                    }
+                }
+
+                .accordion-button:focus {
+                    z-index: 3;
+                    outline: 0;
+                    box-shadow: none;
+                }
+            }
+
+            .accordion-button:not(.collapsed) {
+                color: #fff;
+                background-color: #378CE7;
+                border: 0xp;
+                border-radius: 10px;
+
+                h5 {
+                    color: #fff;
+                    font-family: "Public sans";
+                }
+
+                &::after {
+                    filter: invert(1) brightness(100);
+
+                }
+            }
+        }
+
+    }
+
+}
+
+// Responsive css start here
+
+@media screen and (max-width:991px) {
+    .faq_wrp {
+        padding: 50px 0px !important;
+
+        .accordion {
+            .accordion-item {
+                .accordion-header {
+                    .accordion-button {
+                        h5 {
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+}
+
+@media screen and (max-width:575px) {
+    .faq_wrp {
+        padding: 40px 0px !important;
+
+        .accordion {
+            .accordion-item {
+                .accordion-header {
+                    .accordion-button {
+                        h5 {
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+}

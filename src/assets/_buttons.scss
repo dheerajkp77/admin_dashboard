@@ -1,0 +1,108 @@
+.theme-btn {
+    width: auto;
+    min-height: 45px;
+    height: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 500;
+    border-radius: 50px;
+    border: 0;
+    color: var(--white);
+    background:#378ce7;
+    border: 1px solid #378ce7;
+    padding: 5px 40px;
+    transition: .4s;
+    &:hover{
+        background:#0000;
+        color: #378ce7;
+    }
+}
+
+.social-btn {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 500;
+    border-radius: 0px;
+    color: var(--white);
+    column-gap: 10px;
+    margin-top: 10px;
+    cursor: alias!important;
+
+    &.facebook-btn {
+        background-color: #4866a8;
+    }
+
+    &.google-btn {
+        background-color: #da3f34;
+    }
+
+    &.twiter-btn {
+        background-color: #33ccff;
+    }
+}
+
+button {
+    &.btn-link {
+        color: var(--white);
+    }
+}
+
+.btn {
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;;
+    padding: 10px;
+    text-decoration: none;
+    border: 0;
+    width: auto;
+}
+
+.btn-theme {
+	background: var(--primary-color);
+	color: #fff;
+	padding: 12px 30px;
+	border-radius: 50px;
+	font-size: 16px;
+	font-weight: 500;
+  border: 1px solid var(--primary-color);
+  transition: .4s;
+  display: inline-flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  &:hover{
+    background: #0000;
+    color: var(--primary-color);
+  }
+}
+.btn-outline{
+    background: #0000;
+	color: var(--primary-color);
+	padding: 12px 30px;
+	border-radius: 50px;
+	font-size: 16px;
+	font-weight: 500;
+  border: 1px solid var(--primary-color);
+  transition: .4s;
+  display: inline-flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  &:hover{
+    background: var(--primary-color);
+    color: #fff;
+  }
+}
