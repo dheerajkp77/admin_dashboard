@@ -1,43 +1,25 @@
-
 import { useQuery } from "@tanstack/react-query";
-import moment from "moment";
 import React from "react";
-import { Badge, Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useSlider from "../../hooks/useSlider";
-import Sidebar from "../sidebar/Sidebar";
+import { getProductDetails } from "../../services/services";
 import AdminFooter from "../AdminFooter";
+import Sidebar from "../sidebar/Sidebar";
+import Loader from "../../components/Loader/Loader";
 
 const ViewProduct = () => {
   const isSlider = useSlider();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data: productView, refetch } = useQuery({
+  const { data: productView, isPending } = useQuery({
     queryKey: ["product-details", id],
     queryFn: async () => {
-      const res = await adminProductView(id);
-      return res.data?.data;
+      const res = await getProductDetails(id);
+      return res.data;
     },
   });
-
-  const stateId = {
-    1: "Active",
-    2: "Inactive",
-    3: "Deleted",
-  };
-
-  const badgeColor = {
-    1: "success",
-    2: "primary",
-    3: "danger",
-  };
-
-  const category = {
-    0: "Male",
-    1: "Female",
-    2: "Unisexual",
-  };
 
   return (
     <>
@@ -79,10 +61,7 @@ const ViewProduct = () => {
                                   lg={2}
                                   key={index}
                                 >
-                                  <img
-                                    src={import.meta.env.VITE_IMAGE_URL + i}
-                                    className="preview-img"
-                                  />
+                                  <img src={i} className="preview-img" />
                                 </Col>
                               ))}
                             </Row>
@@ -103,53 +82,19 @@ const ViewProduct = () => {
                         <tr>
                           <th>Category</th>
                           <td>
-                            <p className="mb-0">
-                              {category[productView?.category] ?? "NA"}
-                            </p>
+                            <p className="mb-0">{productView?.category}</p>
                           </td>
                         </tr>
                         <tr>
-                          <th>Material</th>
+                          <th>Brand</th>
                           <td>
-                            <p className="mb-0">{productView?.material}</p>
+                            <p className="mb-0">{productView?.brand}</p>
                           </td>
                         </tr>
                         <tr>
-                          <th>Amount</th>
+                          <th>Price</th>
                           <td>
                             <p className="mb-0">${productView?.price}</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>Size</th>
-                          <td>
-                            <p className="mb-0">
-                              {productView?.size?.toString()}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>Type</th>
-                          <td>
-                            <p className="mb-0">{productView?.type}</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>Created On </th>
-                          <td>
-                            <p className="mb-0">
-                              {moment(productView?.createdAt).format("LLL")}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>Status</th>
-                          <td>
-                            <Badge
-                              bg={badgeColor[productView?.stateId] ?? "warning"}
-                            >
-                              {stateId[productView?.stateId] ?? "NA"}
-                            </Badge>
                           </td>
                         </tr>
                       </tbody>
@@ -162,6 +107,7 @@ const ViewProduct = () => {
         </div>
         <AdminFooter />
       </div>
+      {isPending && <Loader/>}
     </>
   );
 };

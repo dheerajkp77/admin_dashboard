@@ -29,7 +29,7 @@ const SubMenu = ({ item }) => {
             setSubnav(!subnav);
           }
         }}
-        className={slider && addClass}
+        className={slider ? addClass :""}
       >
         <span className="value">
           {item.icon}
