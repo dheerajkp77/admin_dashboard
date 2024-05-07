@@ -17,7 +17,7 @@ const NotFound = () => {
           onClick={() => {
             navigate("/");
           }}
-          className="theme-btn btn-md"
+          className="theme-btn btn-md mt-4"
         >
           Go to Home
         </button>

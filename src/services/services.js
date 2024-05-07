@@ -23,6 +23,6 @@ http.interceptors.request.use(
 
 /********************* AUTHENTICATION STARTS *********************/
 export const signIn = async (body) => {
-  return await http.post(`/auth/signin`, body);
+  return await http.post(`/auth/login`, body);
 };
 

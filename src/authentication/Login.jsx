@@ -4,23 +4,15 @@ import React, { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import {
-  Link,
-  createSearchParams,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { login } from "../redux/features/authSlice";
 import { signIn } from "../services/services";
-import { toastAlert } from "../utils/SweetAlert";
 import "./auth-responsive.scss";
 import "./auth.scss";
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
   const [showPass, setShowPass] = useState(false);
   const {
     values,
@@ -32,16 +24,16 @@ const Login = () => {
     resetForm,
   } = useFormik({
     initialValues: {
-      email: "",
+      userName: "",
       password: "",
     },
     validationSchema: yup.object().shape({
-      email: yup.string().required().label("Email").email().trim(),
+      userName: yup.string().required().label("Username").trim(),
       password: yup.string().required().label("Password").trim(),
     }),
     onSubmit: (values) => {
       let body = {
-        email: values?.email,
+        username: values?.userName,
         password: values?.password,
       };
 
@@ -52,20 +44,8 @@ const Login = () => {
   const mutation = useMutation({
     mutationFn: (body) => signIn(body),
     onSuccess: (resp) => {
-      if (resp?.data?.data?.isVerified == 0) {
-        toastAlert("success", "Your OTP is " + resp.data?.data?.otp);
-        navigate({
-          pathname: "/verify-otp",
-          search: createSearchParams({ email: values.email }).toString(),
-        });
-      } else {
-        if (location?.state) {
-          navigate(location.state);
-        }
-        dispatch(login(resp?.data?.data));
-        toastAlert("success", resp.data?.message);
-        resetForm();
-      }
+      dispatch(login(resp?.data));
+      resetForm();
     },
   });
 
@@ -86,22 +66,22 @@ const Login = () => {
                   <Col lg={12}>
                     <Form.Group className="mb-4">
                       <Form.Control
-                        type="email"
-                        placeholder="Enter Your Email "
-                        name="email"
-                        value={values.email}
+                        type="text"
+                        placeholder="Enter Your Username "
+                        name="userName"
+                        value={values.userName}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         autoComplete="off"
                         onKeyPress={(e) => {
-                          if (e.key === 'Enter') {
+                          if (e.key === "Enter") {
                             e.preventDefault();
                             handleSubmit();
                           }
                         }}
                       />
                       <small className="text-danger">
-                        {touched.email && errors.email}
+                        {touched.userName && errors.userName}
                       </small>
                     </Form.Group>
                   </Col>
@@ -116,7 +96,7 @@ const Login = () => {
                         onBlur={handleBlur}
                         autoComplete="current-password"
                         onKeyPress={(e) => {
-                          if (e.key === 'Enter') {
+                          if (e.key === "Enter") {
                             e.preventDefault();
                             handleSubmit();
                           }

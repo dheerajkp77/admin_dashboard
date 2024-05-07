@@ -1,54 +1,40 @@
-
-import { useQuery } from "@tanstack/react-query";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Chart } from "react-google-charts";
 import { useNavigate } from "react-router-dom";
 import useSlider from "../../hooks/useSlider";
-import Sidebar from "../sidebar/Sidebar";
 import AdminFooter from "../AdminFooter";
+import Sidebar from "../sidebar/Sidebar";
 const Dashboard = () => {
   const isSlider = useSlider();
-  const navigate = useNavigate();
 
-  const dashboardCount = useQuery({
-    queryKey: ["dashboardCount"],
-    queryFn: async () => {
-      const resp = await adminDashboardCounts();
-      return resp?.data?.data ?? "";
+  const data = [
+    ["Year", "Sales", "Expenses", "Profit"],
+    ["2020", 1000, 400, 200],
+    ["2021", 1170, 460, 250],
+    ["2022", 660, 1120, 300],
+    ["2023", 1030, 540, 350],
+  ];
+
+  const options = {
+    chart: {
+      title: "Company Performance",
+      subtitle: "Sales, Expenses, and Profit: 2020-2024",
     },
-  });
-  const [selectedYear, setSelectedYear] = useState(moment().format("YYYY"));
-  const [dashboard, setDashboard] = useState([]);
-  useEffect(() => {
-    getGraphCounts(selectedYear);
-  }, [selectedYear]);
-
-  const getGraphCounts = async (selectedYear) => {
-    try {
-      const response = await dashboardGraphData(selectedYear);
-      if (response?.status === 200) {
-        setDashboard(
-          response?.data?.data?.map((data) => {
-            return data;
-          })
-        );
-      }
-    } catch (error) {
-      console.error(error);
-    }
   };
 
-  const handleYearChange = (event) => {
-    setSelectedYear(event.target.value);
+   const PIdata = [
+    ["Product", "Sales"],
+    ["Product1", 11],
+    ["Product2", 2],
+    ["Product3", 5],
+  ];
+  
+   const PIoptions = {
+    title: "Product Sales",
+    pieHole: 0.4,
+    is3D: false,
   };
-  const years = Array.from(
-    { length: 50 },
-    (_, index) => new Date().getFullYear() - index
-  );
-  const headerData = ["Months", "Registered Users","Product","Booking"];
-  const data = [headerData, ...dashboard];
 
   return (
     <div className="mainbox">
@@ -58,50 +44,35 @@ const Dashboard = () => {
         <div className="dash-widget ">
           <Row>
             <Col xl={3} lg={6} md={6}>
-              <div
-                className="widgetcard"
-                onClick={() => {
-                  navigate("/admin/user-list");
-                }}
-              >
+              <div className="widgetcard">
                 <div className="value">
-                  <p>Registered Users</p>
-                  <h4>{dashboardCount?.data?.userCount ?? 0}</h4>
+                  <p>Users</p>
+                  <h4>{10}</h4>
                 </div>
                 <div className="icon icon-two">
-                <img src="../images/userss.png" alt="img" />
+                  <img src="../images/userss.png" alt="img" />
                 </div>
               </div>
             </Col>
             <Col xl={3} lg={6} md={6}>
-              <div
-                className="widgetcard"
-                // onClick={() => {
-                //   navigate("/admin/user-list");
-                // }}
-              >
+              <div className="widgetcard">
                 <div className="value">
                   <p>Product</p>
-                  <h4>{dashboardCount?.data?.productCount ?? 0}</h4>
+                  <h4>{15}</h4>
                 </div>
                 <div className="icon icon-one">
-                <img src="../images/box.png" alt="img" />
+                  <img src="../images/box.png" alt="img" />
                 </div>
               </div>
             </Col>
             <Col xl={3} lg={6} md={6}>
-              <div
-                className="widgetcard"
-                // onClick={() => {
-                //   navigate("/admin/user-list");
-                // }}
-              >
+              <div className="widgetcard">
                 <div className="value">
                   <p>Booking </p>
-                  <h4>{dashboardCount?.data?.bookingCount ?? 0}</h4>
+                  <h4>{12}</h4>
                 </div>
                 <div className="icon icon-three">
-                <img src="../images/booking.png" alt="img" />
+                  <img src="../images/booking.png" alt="img" />
                 </div>
               </div>
             </Col>
@@ -109,10 +80,10 @@ const Dashboard = () => {
               <div className="widgetcard">
                 <div className="value">
                   <p>Payments</p>
-                  <h4>{dashboardCount?.data?.payments ?? 0}</h4>
+                  <h4>{5}</h4>
                 </div>
                 <div className="icon icon-four">
-                <img src="../images/credit-card.png" alt="img" />
+                  <img src="../images/credit-card.png" alt="img" />
                 </div>
               </div>
             </Col>
@@ -121,25 +92,22 @@ const Dashboard = () => {
         <div className="inner-wrap">
           <div className="custom-card">
             <Row>
-              <Col xl={3} className="ms-auto mb-4">
-                <select
-                  value={selectedYear}
-                  onChange={handleYearChange}
-                  className="form-select cursor"
-                >
-                  {years?.map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              </Col>
-              <Col xl={12}>
+              <Col xl={6}>
                 <Chart
                   chartType="Bar"
                   width="100%"
-                  height="600px"
+                  height="400px"
                   data={data}
+                  options={options}
+                />
+              </Col>
+              <Col xl={6}>
+                <Chart
+                  chartType="PieChart"
+                  width="100%"
+                  height="400px"
+                  data={PIdata}
+                  options={PIoptions}
                 />
               </Col>
             </Row>
